@@ -24,7 +24,7 @@ class CreateTransactionService {
     const categoryRepository = getRepository(Category);
 
     const checkCategoryExists = await categoryRepository.findOne({
-      where: { title: `${category}` },
+      where: { title: category },
     });
 
     let category_id;
@@ -33,7 +33,6 @@ class CreateTransactionService {
       const categoryCreated = categoryRepository.create({
         title: category,
       });
-
       await categoryRepository.save(categoryCreated);
 
       category_id = categoryCreated.id;
