@@ -4,8 +4,6 @@ import csvParse from 'csv-parse';
 import path from 'path';
 import fs from 'fs';
 
-// import AppError from '../errors/AppError';
-
 import uploadConfig from '../config/upload';
 import Transaction from '../models/Transaction';
 import Category from '../models/Category';
@@ -91,8 +89,9 @@ class ImportTransactionsService {
 
     await transactionsRepository.save(createdTransactions);
 
-    await fs.promises.unlink(csvFilePath);
-
+    if (csvFileExists) {
+      await fs.promises.unlink(csvFilePath);
+    }
     return createdTransactions;
   }
 }
